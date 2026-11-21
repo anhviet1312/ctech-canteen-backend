@@ -48,6 +48,22 @@ def create_import(
     if not payload.items:
         raise HTTPException(status_code=400, detail="Phiếu nhập phải có ít nhất 1 mặt hàng")
 
+    # 1. Kiểm tra trùng lặp mặt hàng trong phiếu nhập
+    product_ids = [item.product_id for item in payload.items]
+    if len(product_ids) != len(set(product_ids)):
+        seen = set()
+        duplicates = set()
+        for pid in product_ids:
+            if pid in seen:
+                duplicates.add(pid)
+            seen.add(pid)
+        dup_prods = db.query(Product).filter(Product.id.in_(duplicates)).all()
+        dup_names = ", ".join([f"'{p.name}'" for p in dup_prods])
+        raise HTTPException(
+            status_code=400,
+            detail=f"Mặt hàng {dup_names} bị trùng lặp trong phiếu nhập. Vui lòng gộp số lượng vào cùng một dòng."
+        )
+
     # Generate Code
     last_order = db.query(ImportOrder).order_by(ImportOrder.id.desc()).first()
     next_id = (last_order.id + 1) if last_order else 1

@@ -121,7 +121,31 @@ def run_tests():
     assert rep_inv.status_code == 200
     print(f" Inventory summary: {rep_inv.json()['total_sku']} SKUs, Total Value: {rep_inv.json()['total_value']} VND - OK")
 
-    print("\nALL 8 BACKEND TESTS PASSED SUCCESSFULLY! ")
+    # 9. Exports Validation (Check duplicate items & overstock prevention)
+    # 9a. Duplicate products in export
+    dup_exp = client.post("/api/exports/", json={
+        "reason": "Tiêu thụ",
+        "notes": "Test trùng lặp",
+        "items": [
+            {"product_id": 1, "quantity": 2},
+            {"product_id": 1, "quantity": 3}
+        ]
+    }, headers=staff_headers)
+    assert dup_exp.status_code == 400, f"Expected 400 on duplicate export items, got {dup_exp.status_code}"
+    print(" Export duplicate items prevented (400 Bad Request) - OK")
+
+    # 9b. Exceeding current stock
+    over_exp = client.post("/api/exports/", json={
+        "reason": "Tiêu thụ",
+        "notes": "Test xuất vượt tồn",
+        "items": [
+            {"product_id": 1, "quantity": 999999}
+        ]
+    }, headers=staff_headers)
+    assert over_exp.status_code == 400, f"Expected 400 on overstock export, got {over_exp.status_code}"
+    print(" Export overstock prevented (400 Bad Request) - OK")
+
+    print("\nALL 9 BACKEND TESTS PASSED SUCCESSFULLY! ")
 
 if __name__ == "__main__":
     run_tests()
