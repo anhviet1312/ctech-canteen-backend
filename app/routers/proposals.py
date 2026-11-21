@@ -13,7 +13,7 @@ from app.schemas.proposal import (
 )
 from app.routers.deps import get_current_user, require_manager
 from app.models.user import User
-from app.services.ai_service import analyze_and_suggest
+from app.services.ai_service import analyze_and_suggest, calculate_daily_consumption
 from app.services.workflow_service import transition_proposal
 
 router = APIRouter()
@@ -78,14 +78,18 @@ def create_proposal(
 
     for item in payload.items:
         prod = db.query(Product).filter(Product.id == item.product_id).first()
+        daily_con = item.daily_consumption
+        if not daily_con or daily_con <= 0.0:
+            daily_con = round(calculate_daily_consumption(db, item.product_id, 30), 2)
+
         prop_item = ProposalItem(
             proposal_id=proposal.id,
             product_id=item.product_id,
-            current_stock=prod.current_stock if prod else item.current_stock,
+            current_stock=prod.current_stock if prod else (item.current_stock or 0.0),
             suggested_quantity=item.suggested_quantity,
             reason=item.reason or "",
             priority=item.priority or "MEDIUM",
-            daily_consumption=item.daily_consumption or 0.0
+            daily_consumption=daily_con or 0.0
         )
         db.add(prop_item)
 
