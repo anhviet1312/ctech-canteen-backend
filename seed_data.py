@@ -100,30 +100,30 @@ def seed():
         print("4️⃣ Đang tạo 20 mặt hàng thực tế của Căng tin CTECH...")
         products_data = [
             # Nước giải khát (cat 0, sup 0/1)
-            ("SP001", "Nước ngọt Coca-Cola 320ml", 1, 1, "lon", 24.0, 15.0, 8500.0, "Nước ngọt có ga lon"),
-            ("SP002", "Nước ngọt Pepsi 320ml", 1, 1, "lon", 24.0, 8.0, 8500.0, "Nước ngọt Pepsi lon"), # thấp < min
-            ("SP003", "Nước khoáng Aquafina 500ml", 1, 1, "chai", 48.0, 12.0, 5000.0, "Nước lọc tinh khiết"), # thấp < min
-            ("SP004", "Nước tăng lực Redbull 250ml", 1, 2, "lon", 24.0, 30.0, 12000.0, "Nước tăng lực lon"),
-            ("SP005", "Trà xanh Không Độ 455ml", 1, 2, "chai", 24.0, 5.0, 8000.0, "Trà xanh đóng chai"), # rất thấp
-            ("SP006", "Trà Ô Long TEA+ 455ml", 1, 2, "chai", 24.0, 35.0, 9000.0, "Trà Ô Long không đường"),
+            ("SP001", "Nước ngọt Coca-Cola 320ml", 1, 1, "lon", 24.0, 18.0, 8500.0, "Nước ngọt có ga lon"), # MEDIUM (75% min)
+            ("SP002", "Nước ngọt Pepsi 320ml", 1, 1, "lon", 24.0, 8.0, 8500.0, "Nước ngọt Pepsi lon"), # HIGH (nguy cấp < 50% min)
+            ("SP003", "Nước khoáng Aquafina 500ml", 1, 1, "chai", 48.0, 0.0, 5000.0, "Nước lọc tinh khiết"), # HIGH (hết hàng)
+            ("SP004", "Nước tăng lực Redbull 250ml", 1, 2, "lon", 24.0, 30.0, 12000.0, "Nước tăng lực lon"), # SAFE (dồi dào)
+            ("SP005", "Trà xanh Không Độ 455ml", 1, 2, "chai", 24.0, 4.0, 8000.0, "Trà xanh đóng chai"), # HIGH (nguy cấp < 50% min)
+            ("SP006", "Trà Ô Long TEA+ 455ml", 1, 2, "chai", 24.0, 26.0, 9000.0, "Trà Ô Long không đường"), # LOW (mấp mé an toàn 26/24)
             # Bánh kẹo & Snack (cat 1, sup 1)
-            ("SP007", "Snack Oishi Cay Nồng 40g", 2, 2, "gói", 30.0, 6.0, 6000.0, "Snack ăn vặt học sinh"), # thấp
-            ("SP008", "Snack khoai tây Lay's 52g", 2, 2, "gói", 25.0, 20.0, 11000.0, "Bánh khoai tây chiên"),
-            ("SP009", "Bánh quy AFC Lúa Mì 172g", 2, 2, "hộp", 20.0, 28.0, 16000.0, "Bánh quy dinh dưỡng"),
-            ("SP010", "Bánh Chocopie Lotte 6 cái", 2, 2, "hộp", 15.0, 4.0, 24000.0, "Bánh phủ sô cô la"), # rất thấp
-            ("SP011", "Kẹo cao su Doublemint", 2, 2, "thanh", 40.0, 50.0, 5000.0, "Kẹo bạc hà the mát"),
+            ("SP007", "Snack Oishi Cay Nồng 40g", 2, 2, "gói", 30.0, 6.0, 6000.0, "Snack ăn vặt học sinh"), # HIGH (nguy cấp)
+            ("SP008", "Snack khoai tây Lay's 52g", 2, 2, "gói", 25.0, 20.0, 11000.0, "Bánh khoai tây chiên"), # MEDIUM (80% min)
+            ("SP009", "Bánh quy AFC Lúa Mì 172g", 2, 2, "hộp", 20.0, 28.0, 16000.0, "Bánh quy dinh dưỡng"), # SAFE (dồi dào)
+            ("SP010", "Bánh Chocopie Lotte 6 cái", 2, 2, "hộp", 15.0, 4.0, 24000.0, "Bánh phủ sô cô la"), # HIGH (nguy cấp)
+            ("SP011", "Kẹo cao su Doublemint", 2, 2, "thanh", 40.0, 50.0, 5000.0, "Kẹo bạc hà the mát"), # SAFE (dồi dào)
             # Mì & Thức ăn nhanh (cat 2, sup 0)
-            ("SP012", "Mì Hảo Hảo Tôm chua cay 75g", 3, 1, "gói", 60.0, 18.0, 4200.0, "Mì ăn liền phổ biến"), # thấp
-            ("SP013", "Mì ly Omachi Bò Hầm 68g", 3, 1, "ly", 36.0, 10.0, 9500.0, "Mì khoai tây có thịt"), # thấp
-            ("SP014", "Xúc xích tiệt trùng CP 4 cây", 3, 1, "gói", 30.0, 45.0, 14000.0, "Xúc xích ăn kèm mì"),
-            ("SP015", "Bánh mì sandwich bơ sữa", 3, 1, "cái", 20.0, 5.0, 12000.0, "Bánh mì tươi buổi sáng"), # rất thấp
+            ("SP012", "Mì Hảo Hảo Tôm chua cay 75g", 3, 1, "gói", 60.0, 18.0, 4200.0, "Mì ăn liền phổ biến"), # HIGH (nguy cấp)
+            ("SP013", "Mì ly Omachi Bò Hầm 68g", 3, 1, "ly", 36.0, 24.0, 9500.0, "Mì khoai tây có thịt"), # MEDIUM (66% min)
+            ("SP014", "Xúc xích tiệt trùng CP 4 cây", 3, 1, "gói", 30.0, 32.0, 14000.0, "Xúc xích ăn kèm mì"), # LOW (mấp mé an toàn 32/30)
+            ("SP015", "Bánh mì sandwich bơ sữa", 3, 1, "cái", 20.0, 5.0, 12000.0, "Bánh mì tươi buổi sáng"), # HIGH (nguy cấp)
             # Sữa & Dinh dưỡng (cat 3, sup 1)
-            ("SP016", "Sữa tươi Vinamilk có đường 180ml", 4, 2, "hộp", 48.0, 22.0, 7800.0, "Sữa tươi tiệt trùng"), # thấp
-            ("SP017", "Sữa cacao lúa mạch Milo 180ml", 4, 2, "hộp", 36.0, 40.0, 8500.0, "Sữa Milo năng lượng"),
-            ("SP018", "Sữa chua ăn Vinamilk có đường", 4, 2, "hộp", 30.0, 8.0, 6500.0, "Sữa chua hộp làm mát"), # thấp
+            ("SP016", "Sữa tươi Vinamilk có đường 180ml", 4, 2, "hộp", 48.0, 34.0, 7800.0, "Sữa tươi tiệt trùng"), # MEDIUM (70% min)
+            ("SP017", "Sữa cacao lúa mạch Milo 180ml", 4, 2, "hộp", 36.0, 40.0, 8500.0, "Sữa Milo năng lượng"), # LOW (mấp mé an toàn 40/36)
+            ("SP018", "Sữa chua ăn Vinamilk có đường", 4, 2, "hộp", 30.0, 8.0, 6500.0, "Sữa chua hộp làm mát"), # HIGH (nguy cấp)
             # Đồ dùng căng tin (cat 4, sup 2)
-            ("SP019", "Cốc giấy dùng 1 lần 250ml", 5, 3, "cây", 20.0, 25.0, 35000.0, "Cây 50 cốc giấy"),
-            ("SP020", "Khăn giấy napkin Pulppy", 5, 3, "gói", 15.0, 18.0, 15000.0, "Khăn giấy ăn căng tin")
+            ("SP019", "Cốc giấy dùng 1 lần 250ml", 5, 3, "cây", 20.0, 25.0, 35000.0, "Cây 50 cốc giấy"), # SAFE (dồi dào)
+            ("SP020", "Khăn giấy napkin Pulppy", 5, 3, "gói", 15.0, 18.0, 15000.0, "Khăn giấy ăn căng tin") # SAFE (dồi dào)
         ]
 
         products = []
